@@ -1,0 +1,12 @@
+django
+django-heroku
+django-cors-headers
+Django-rest-Knox
+djangorestframework
+gunicorn
+psycopg2
+psycopg2-binary
+whitenoise
+python-dotenv
+numpy
+Pillow
