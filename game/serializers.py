@@ -33,7 +33,10 @@ class GameSerializer(serializers.ModelSerializer):
             pass
 
         return data
-
+    def to_internal_value(self, data):
+        data["img_curr"] = None
+        data["img_win"] = None
+        return super().to_internal_value(data)
 
 class MoveSerializer(serializers.ModelSerializer):
     class Meta:
