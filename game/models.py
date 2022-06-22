@@ -36,8 +36,8 @@ class GameKlotski(models.Model):
     win_block_y = models.IntegerField(null=True, blank=True)
     wcset = models.BooleanField(default=False)
 
-    img_curr = models.ImageField(upload_to=file_path_curr, null=True, blank=True)
-    img_win = models.ImageField(upload_to=file_path_win, null=True, blank=True)
+    # img_curr = models.ImageField(upload_to=file_path_curr, null=True, blank=True)
+    # img_win = models.ImageField(upload_to=file_path_win, null=True, blank=True)
 
     # dates
     created = models.DateTimeField(auto_now_add=True)
@@ -128,8 +128,8 @@ class GameKlotski(models.Model):
         return GameKlotski.objects.get(pk=id)
 
 
-post_delete.connect(delete_game_img, sender=GameKlotski)
-pre_save.connect(update_game_img, sender=GameKlotski)
+# post_delete.connect(delete_game_img, sender=GameKlotski)
+# pre_save.connect(update_game_img, sender=GameKlotski)
 
 
 class GameBlock(models.Model):
