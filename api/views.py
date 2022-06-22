@@ -27,7 +27,10 @@ class RegisterAPIView(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         user = serializer.save()
         return Response(
             {
@@ -45,7 +48,8 @@ class LoginAPIView(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         user = serializer.validated_data
         return Response(
             {
@@ -92,7 +96,6 @@ class GameView(APIView):
 
         blocks = game.game_blocks.all()
         moves = game.moves.all()
-
         game_serial = self.game_serializer(game)
         block_serial = self.block_serializer(blocks, many=True)
         move_serial = self.move_serializer(moves, many=True)
@@ -110,9 +113,9 @@ class GameView(APIView):
         if data_game["code"] == "classic":
             return self.post(request)
 
-        # Propperly saving images from base64 canvas URI is hard
-        data_game["img_curr"] = get_ContentFile_from_b64_image(data_game["img_curr"])
-        data_game["img_win"] = get_ContentFile_from_b64_image(data_game["img_win"])
+        # # Propperly saving images from base64 canvas URI is hard
+        # data_game["img_curr"] = get_ContentFile_from_b64_image(data_game["img_curr"])
+        # data_game["img_win"] = get_ContentFile_from_b64_image(data_game["img_win"])
 
         game_serial = self.game_serializer(data=data_game)
         blocks_serial = self.block_serializer(data=request.data["blocks"], many=True)
@@ -129,34 +132,35 @@ class GameView(APIView):
             
             ### TODO: Wrap in try/except and revert moves if error
             game.number_of_moves = game_serial.data.get("number_of_moves")
-            game.img_curr = game_serial.data.get("img_curr")
+            # game.img_curr = game_serial.data.get("img_curr")
             for block in blocks_serial.data:
                 bl = GameBlock.objects.filter(game=block["game"], name=block["name"])[0]
                 bl.move(block["x"], block["y"])
 
             game_moves = game.moves.all()
 
-            game.save(update_fields=["number_of_moves", "img_curr"])
+            # game.save(update_fields=["number_of_moves", "img_curr"])
+            game.save(update_fields=["number_of_moves" ])
             game_moves.delete()
             moves_serial.save()
 
             return Response(status=status.HTTP_202_ACCEPTED)
         else:
-            print()
-            print("game_serial.errors", game_serial.errors)
-            print()
-            print("blocks_serial.errors", blocks_serial.errors)
-            print()
-            print("moves_serial.errors", moves_serial.errors)
-            print()
-            raise ValidationError("Not valid")
+            # print()
+            # print("game_serial.errors", game_serial.errors)
+            # print()
+            # print("blocks_serial.errors", blocks_serial.errors)
+            # print()
+            # print("moves_serial.errors", moves_serial.errors)
+            # print()
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, game_code=None, game_pk=None):
         data_game = request.data["game"]
 
         # Propperly saving images from base64 canvas URI is hard
-        data_game["img_curr"] = get_ContentFile_from_b64_image(data_game["img_curr"])
-        data_game["img_win"] = get_ContentFile_from_b64_image(data_game["img_win"])
+        # data_game["img_curr"] = get_ContentFile_from_b64_image(data_game["img_curr"])
+        # data_game["img_win"] = get_ContentFile_from_b64_image(data_game["img_win"])
 
         game_serial = self.game_serializer(data=data_game)
         blocks_serial = self.block_serializer(data=request.data["blocks"], many=True)
@@ -166,16 +170,16 @@ class GameView(APIView):
                 owner = request.user,
                 cols = game_serial.data.get("cols"),
                 rows = game_serial.data.get("rows"),
-                img_curr = InMemoryUploadedFile(
-                    data_game["img_curr"], None, None, None, None, None
-                ),
-                img_win = InMemoryUploadedFile(
-                    data_game["img_win"], None, None, None, None, None
-                ),
+                # img_curr = InMemoryUploadedFile(
+                #     data_game["img_curr"], None, None, None, None, None
+                # ),
+                # img_win = InMemoryUploadedFile(
+                #     data_game["img_win"], None, None, None, None, None
+                # ),
             )
 
-            if new_game.img_curr == None or new_game.img_win == None:
-                raise ValidationError("no imgages")
+            # if new_game.img_curr == None or new_game.img_win == None:
+            #     raise ValidationError("no imgages")
 
             new_game.set_win_condition(
                 game_serial.data.get("win_block_x"), game_serial.data.get("win_block_y")
@@ -195,12 +199,12 @@ class GameView(APIView):
                 status=status.HTTP_201_CREATED,
             )
         else:
-            print()
+            # print()
             print("game_serial.errors", game_serial.errors)
-            print()
+            # print()
             print("blocks_serial.errors", blocks_serial.errors)
-            print()
-            raise ValidationError("Not valid")
+            # print()
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, game_code=None, game_pk=None):
         if game_code:
@@ -211,6 +215,6 @@ class GameView(APIView):
         if game.owner != request.user:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-        print("DELETE", game.code)
+        # print("DELETE", game.code)
         game.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

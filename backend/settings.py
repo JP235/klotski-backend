@@ -28,7 +28,7 @@ SECRET_KEY = str(os.environ.get('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['jpmantilla.herokuapp.com','klotski-backend.herokuapp.com' '127.0.0.1:8000', 'localhost']
+ALLOWED_HOSTS = ['jpmantilla.herokuapp.com','klotski-api.herokuapp.com','127.0.0.1:8000', 'localhost:3000']
 
 # Application definition
 INSTALLED_APPS = [

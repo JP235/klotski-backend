@@ -8,7 +8,7 @@ def welcome(request):
     return HttpResponse("Hello world!")
 
 urlpatterns = [
-    path("/", welcome, name="welcome"),
+    path("", welcome, name="welcome"),
     path("admin/", admin.site.urls),
     path('api/', include('api.urls')),
     path('accounts', include('knox.urls')),
