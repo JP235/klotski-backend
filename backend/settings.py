@@ -82,6 +82,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = str(os.environ.get("DROPBOX_OAUTH2_TOKEN"))
+# DROPBOX_ROOT_PATH = '/media/'
 DATABASES = {}
 DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
