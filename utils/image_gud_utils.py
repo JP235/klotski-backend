@@ -11,12 +11,14 @@ from .constants import IMG_CURR, IMG_CURR_PATH, IMG_WIN, IMG_WIN_PATH
 def file_path_curr(instance, filename) -> str:
     fpath = pathlib.Path(filename)
     randname = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-    return f'{IMG_CURR_PATH}{instance.code}-{randname}{fpath.suffix}'
+    # return f'{IMG_CURR_PATH}{instance.code}-{randname}{fpath.suffix}'
+    return os.path.join(IMG_CURR_PATH, f"{randname}{fpath.suffix}")
 
 def file_path_win(instance, filename) -> str:
     fpath = pathlib.Path(filename)
     randname = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-    return f'{IMG_WIN_PATH}{instance.code}-{randname}{fpath.suffix}'
+    # return f'{IMG_WIN_PATH}{instance.code}-{randname}{fpath.suffix}'
+    return os.path.join(IMG_WIN_PATH, f"{randname}{fpath.suffix}")
 
 
 def get_ContentFile_from_b64_image(b64str):

@@ -27,5 +27,5 @@ OPP_MOVES = {
 IMG_WIN = "img_win"
 IMG_CURR = "img_curr"
 
-IMG_WIN_PATH = "images/win/"
-IMG_CURR_PATH = "images/curr/"
+IMG_WIN_PATH = "win"
+IMG_CURR_PATH = "curr"

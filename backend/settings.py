@@ -127,8 +127,7 @@ USE_TZ = True
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
@@ -148,3 +147,4 @@ except ImportError:
     DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
     DROPBOX_OAUTH2_TOKEN = str(os.environ.get("DROPBOX_OAUTH2_TOKEN"))
     DROPBOX_ROOT_PATH = "/"
+    
