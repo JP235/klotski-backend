@@ -34,9 +34,12 @@ class GameSerializer(serializers.ModelSerializer):
 
         return data
     def to_internal_value(self, data):
-        # data["img_curr"] = None
-        # data["img_win"] = None
-        return super().to_internal_value(data)
+        # curr = data["img_curr"] 
+        # win = data["img_win"]
+        internal = super().to_internal_value(data)
+        # internal["img_curr"] = InMemoryUploadedFile(curr, None, curr.name, None, None, None, None)
+        # internal["img_win"] = InMemoryUploadedFile(win, None, win.name, None, None, None, None)
+        return internal
 
 class MoveSerializer(serializers.ModelSerializer):
     class Meta:

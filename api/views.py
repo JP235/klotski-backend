@@ -169,16 +169,8 @@ class GameView(APIView):
                 owner = request.user,
                 cols = game_serial.data.get("cols"),
                 rows = game_serial.data.get("rows"),
-                img_curr = InMemoryUploadedFile(
-                    data_game["img_curr"], None, None, None, None, None
-                ),
-                img_win = InMemoryUploadedFile(
-                    data_game["img_win"], None, None, None, None, None
-                ),
-            )
-
-            # if new_game.img_curr == None or new_game.img_win == None:
-            #     raise ValidationError("no imgages")
+                img_curr = InMemoryUploadedFile(data_game["img_curr"], None, None, None, None, None),
+                img_win = InMemoryUploadedFile(data_game["img_win"], None, None, None, None, None),)
 
             new_game.set_win_condition(
                 game_serial.data.get("win_block_x"), game_serial.data.get("win_block_y")

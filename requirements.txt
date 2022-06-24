@@ -10,4 +10,5 @@ dj-database-url
 whitenoise
 python-dotenv
 numpy
+django-storages[dropbox]
 Pillow
