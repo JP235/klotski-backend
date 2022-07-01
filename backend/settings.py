@@ -32,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "jpmantilla.herokuapp.com",
     "klotski-api.herokuapp.com",
+    "klotski-game.herokuapp.com",
     "127.0.0.1",
     "192.168.0.121",
     "localhost",
@@ -108,7 +109,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-CORS_ORIGIN_WHITELIST = ["https://jpmantilla.herokuapp.com", "http://localhost:3000"]
+CORS_ORIGIN_WHITELIST = ["https://jpmantilla.herokuapp.com", "http://localhost:3000","https://klotski-game.herokuapp.com"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
