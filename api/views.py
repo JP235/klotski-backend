@@ -13,6 +13,7 @@ from utils.image_gud_utils import get_ContentFile_from_b64_image
 
 
 class UserAPIView(generics.RetrieveAPIView):
+    """User API View"""
     permission_classes = [
         permissions.IsAuthenticated,
     ]
@@ -23,9 +24,11 @@ class UserAPIView(generics.RetrieveAPIView):
 
 
 class RegisterAPIView(generics.GenericAPIView):
+    """Register API View"""
     serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
+        """"""
         serializer = self.get_serializer(data=request.data)
 
         if not serializer.is_valid():
@@ -44,6 +47,7 @@ class RegisterAPIView(generics.GenericAPIView):
 
 
 class LoginAPIView(generics.GenericAPIView):
+    """Login API View"""
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
@@ -74,6 +78,11 @@ class GameKlotskiList(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.owned.all()
+
+class GameKlotskiListOpen(generics.ListAPIView):
+    serializer_class = GameSerializer
+    def get_queryset(self):
+        return GameKlotski.objects.filter(owner=None)
 
 
 class GameView(APIView):
