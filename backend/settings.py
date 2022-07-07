@@ -145,8 +145,5 @@ REST_FRAMEWORK = {
 try:
     from .local_settings import *
 except ImportError:
-    # DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-    # DROPBOX_OAUTH2_TOKEN = str(os.environ.get("DROPBOX_OAUTH2_TOKEN"))
-    # DROPBOX_ROOT_PATH = "/"
     pass
     

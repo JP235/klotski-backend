@@ -1,15 +1,12 @@
 *.prof
 migrations
-uploads
+
+uploads/curr
+uploads/win
 mediafiles
 staticfiles
 local_settings.py
 
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
 __pycache__
 *.pyc
 
