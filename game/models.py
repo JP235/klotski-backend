@@ -1,6 +1,3 @@
-import json
-import logging
-
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -16,7 +13,6 @@ from utils.image_gud_utils import (
 )
 
 from utils.code_gen import generate_unique_code
-from solver import *
 
 
 class GameKlotski(models.Model):
@@ -24,10 +20,12 @@ class GameKlotski(models.Model):
     Represents a game of Klotski
     """
 
+    code = models.CharField(max_length=8, default=generate_unique_code)
+
     owner = models.ForeignKey(
         User, related_name="owned", on_delete=models.CASCADE, null=True
     )
-    code = models.CharField(max_length=8, default=generate_unique_code)
+    private = models.BooleanField(default=False)
 
     cols = models.IntegerField(default=4)
     rows = models.IntegerField(default=5)

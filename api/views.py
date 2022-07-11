@@ -82,7 +82,7 @@ class GameKlotskiList(generics.ListAPIView):
 class GameKlotskiListOpen(generics.ListAPIView):
     serializer_class = GameSerializer
     def get_queryset(self):
-        return GameKlotski.objects.filter(owner=None)
+        return GameKlotski.objects.filter(private=False, solved=False)
 
 
 class GameView(APIView):
