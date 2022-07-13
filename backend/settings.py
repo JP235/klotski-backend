@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
-from dotenv import load_dotenv
 from pathlib import Path
+from dotenv import load_dotenv
 import django_heroku
 import dj_database_url
 
@@ -85,7 +85,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 DATABASES = {}
-DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES["default"] = dj_database_url.config(
+    conn_max_age=600, ssl_require=True)
 
 django_heroku.settings(locals())
 
@@ -109,7 +110,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-CORS_ORIGIN_WHITELIST = ["https://jpmantilla.herokuapp.com", "http://localhost:3000","https://klotski-game.herokuapp.com"]
+CORS_ORIGIN_WHITELIST = ["https://jpmantilla.herokuapp.com", "http://localhost:3000",
+                         "https://klotski-game.herokuapp.com",
+                         "https://jp235-klotski-frontend-gp9g4v4phvx5x-3000.githubpreview.dev"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -143,7 +146,6 @@ REST_FRAMEWORK = {
 }
 
 try:
-    from .local_settings import *
+    from .local_settings import DATABASES
 except ImportError:
     pass
-    
